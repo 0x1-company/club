@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:club/provider/user.dart';
 import 'package:riverpod/riverpod.dart';
@@ -12,8 +14,10 @@ final databaseProvider = Provider<DatabaseConnection>((ref) {
 });
 
 abstract class _CollectionPath {
-  static const String users = "users";
+  static const String users = "/users";
   static String userPrivates(String id) => '$users/$id/privates';
+
+  static const String domains = '/domains';
 }
 
 class DatabaseConnection {
@@ -32,5 +36,9 @@ class DatabaseConnection {
     return FirebaseFirestore.instance
         .collection(_CollectionPath.userPrivates(_uid))
         .doc(_uid);
+  }
+
+  CollectionReference domainReference() {
+    return FirebaseFirestore.instance.collection(_CollectionPath.domains);
   }
 }

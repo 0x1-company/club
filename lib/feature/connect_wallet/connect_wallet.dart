@@ -1,5 +1,5 @@
 import 'package:club/components/ink_fore.dart';
-import 'package:club/feature/username/username.dart';
+import 'package:club/feature/domain/domain.dart';
 import 'package:club/util/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -41,7 +41,7 @@ class _ConnectWalletPage extends StatelessWidget {
                     onTap: (context) {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const UsernamePage(),
+                          builder: (context) => const DomainPage(),
                         ),
                       );
                     },

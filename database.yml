@@ -9,5 +9,9 @@ users:
   privates:
     email: string
 
+domains:
+  label: string
+  address: string
+
 transactions:
   createdAt: number

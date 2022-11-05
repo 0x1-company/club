@@ -1,19 +1,37 @@
-import 'package:club/components/ink_fore.dart';
 import 'package:club/components/rounded.dart';
+import 'package:club/components/scaffold_indicator.dart';
+import 'package:club/feature/domain/state_notifier.dart';
+import 'package:club/feature/domain/state.codegen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class UsernamePage extends HookConsumerWidget {
-  const UsernamePage({Key? key}) : super(key: key);
+class DomainPage extends HookConsumerWidget {
+  const DomainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const _UsernamePage();
+    final state = ref.watch(domainStateProvider);
+    final domainLabelNameNotifier =
+        ref.watch(domainLabelNameNotifierProvider.notifier);
+
+    return state.when(
+      data: (state) => _DomainPage(
+          state: state, domainLabelNameNotifier: domainLabelNameNotifier),
+      error: (error, _) => Container(),
+      loading: () => const ScaffoldIndicator(),
+    );
   }
 }
 
-class _UsernamePage extends StatelessWidget {
-  const _UsernamePage({Key? key}) : super(key: key);
+class _DomainPage extends StatelessWidget {
+  final DomainState state;
+  final DomainLabelNameNotifier domainLabelNameNotifier;
+
+  const _DomainPage({
+    Key? key,
+    required this.state,
+    required this.domainLabelNameNotifier,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +50,12 @@ class _UsernamePage extends StatelessWidget {
           ),
           const SizedBox(height: 40),
           TextField(
+            onChanged: (labelName) => domainLabelNameNotifier.set(labelName),
             textAlign: TextAlign.center,
             cursorColor: Colors.white,
             focusNode: FocusNode(canRequestFocus: true),
             decoration: const InputDecoration(
-              hintText: "username",
+              hintText: "username.byclub.in",
               hintStyle: TextStyle(
                 color: Colors.grey,
               ),
@@ -44,6 +63,19 @@ class _UsernamePage extends StatelessWidget {
             style: const TextStyle(
               color: Colors.white,
             ),
+          ),
+          state.isAvailable.when(
+            data: (isAvailable) => Text(
+              isAvailable ? 'Available' : 'Not available',
+              style: TextStyle(
+                color: isAvailable ? Colors.green : Colors.red,
+              ),
+            ),
+            error: (error, _) => Text(
+              '$error',
+              style: const TextStyle(color: Colors.white),
+            ),
+            loading: () => const CircularProgressIndicator(),
           ),
           const Spacer(),
           Stack(

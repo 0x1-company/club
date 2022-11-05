@@ -27,6 +27,7 @@ class Root extends HookConsumerWidget {
     //   },
     //   loading: () => const ScaffoldIndicator(),
     // );
-    return const TabPage();
+    // return const TabPage();
+    return const WelcomePage();
   }
 }
