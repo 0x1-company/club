@@ -1,4 +1,4 @@
-import 'package:club/feature/domain/state_notifier.dart';
+import 'package:club/feature/domain/domain_label_name_notifier.dart';
 import 'package:club/provider/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod/riverpod.dart';

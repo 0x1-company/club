@@ -1,6 +1,6 @@
 import 'package:club/components/rounded.dart';
 import 'package:club/components/scaffold_indicator.dart';
-import 'package:club/feature/domain/state_notifier.dart';
+import 'package:club/feature/domain/domain_label_name_notifier.dart';
 import 'package:club/feature/domain/state.codegen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
