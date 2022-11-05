@@ -1,0 +1,13 @@
+users:
+  id: string
+  provider: string # apple.com or google.com
+  packageInfo:
+    latestOS: string
+    appName: string
+    appVersion: string
+    buildNumber: string
+  privates:
+    email: string
+
+transactions:
+  createdAt: number

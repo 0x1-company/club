@@ -1,0 +1,9 @@
+git_url('git@github.com:tomokisun/certificates.git')
+
+type('appstore')
+
+app_identifier([
+    'xyz.tomokisun.app.club.staging'
+])
+
+username('developertomokisun@gmail.com')

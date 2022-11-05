@@ -1,0 +1,30 @@
+# name: deploy-debug
+
+# on:
+#   workflow_dispatch:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   iOS:
+#     runs-on: macos-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - run: ./.github/workflows/scripts/install-flutter.sh 3.3.0
+#       - run: ./.github/workflows/scripts/install-tools.sh
+#       - run: flutter pub get
+#       - uses: actions/cache@v2
+#         with:
+#           path: vendor/bundle
+#           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+#           restore-keys: ${{ runner.os }}-gems-
+#       - run: bundle install --path vendor/bundle --jobs 4 --retry 3
+#       - run: bundle exec fastlane certificates
+#         working-directory: ios
+#         env:
+#           PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+#           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+#       - run: flutter build ipa --release --export-options-plist=./ios/ExportOptions-debug.plist --build-name $(date '+%Y').$(date '+%m').$(date '+%d') --build-number ${GITHUB_RUN_ID}
+#       - run: xcrun altool --upload-app -t ios -f ./build/ios/ipa/club.ipa -u "${{ secrets.APPLE_ID }}" -p "${{ secrets.APPLE_APP_PASS }}"
