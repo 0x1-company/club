@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:club/entity/user.dart';
 import 'package:club/provider/auth.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
 DocumentReference<User> userDocumentReference(String id) {

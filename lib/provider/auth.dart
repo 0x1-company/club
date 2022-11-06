@@ -1,4 +1,6 @@
 import 'package:async/async.dart';
+import 'package:club/database/database.dart';
+import 'package:club/datastore/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -13,15 +15,17 @@ final authStateStreamProvider = StreamProvider(
 
 Future<User?> _cacheOrAuth() async {
   final currentUser = FirebaseAuth.instance.currentUser;
-  print('current user $currentUser');
   if (currentUser != null) return currentUser;
 
-  try {
-    final value = await FirebaseAuth.instance.signInAnonymously();
-    print('value : $value');
-    return value.user;
-  } catch (error) {
-    print(error);
-    return null;
-  }
+  final value = await FirebaseAuth.instance.signInAnonymously();
+  final user = value.user;
+  if (user == null) return null;
+
+  final userDatastore = UserDatastore(
+    DatabaseConnection(user.uid),
+  );
+
+  await userDatastore.record(user.uid);
+
+  return user;
 }

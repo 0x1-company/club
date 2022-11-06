@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:club/provider/user.dart';
 import 'package:riverpod/riverpod.dart';
