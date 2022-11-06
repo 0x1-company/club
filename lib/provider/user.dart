@@ -19,7 +19,7 @@ DocumentReference userDocumentPrivateReference({required String userID}) {
 }
 
 final userStreamProvider = StreamProvider<User?>((ref) {
-  final firebaseCurrentUser = ref.watch(firebaseCurrentUserProvider);
+  final firebaseCurrentUser = ref.watch(authStateStreamProvider);
   if (firebaseCurrentUser is AsyncLoading) return const Stream.empty();
 
   final firebaseCurrentUserValue = firebaseCurrentUser.value;

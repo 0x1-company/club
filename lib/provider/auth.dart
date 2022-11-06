@@ -1,20 +1,20 @@
-import 'dart:async';
-
+import 'package:async/async.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod/riverpod.dart';
 
-final firebaseCurrentUserProvider = FutureProvider((ref) async {
-  final waitForFirebaseAuthSetup = Future<void>(() {
-    final completer = Completer<void>();
+final authStateStreamProvider = StreamProvider(
+  (ref) => StreamGroup.merge(
+    [
+      _cacheOrAuth().asStream(),
+      FirebaseAuth.instance.userChanges(),
+    ],
+  ),
+);
 
-    StreamSubscription<User?>? subscription;
-    subscription = FirebaseAuth.instance.userChanges().listen((firebaseUser) {
-      completer.complete();
-      subscription?.cancel();
-    });
-    return completer.future;
-  });
-  await waitForFirebaseAuthSetup;
+Future<User?> _cacheOrAuth() async {
+  final currentUser = FirebaseAuth.instance.currentUser;
+  if (currentUser != null) return currentUser;
 
-  return FirebaseAuth.instance.currentUser;
-});
+  final value = await FirebaseAuth.instance.signInAnonymously();
+  return value.user;
+}
