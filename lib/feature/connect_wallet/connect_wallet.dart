@@ -1,24 +1,19 @@
 import 'package:club/components/ink_fore.dart';
+import 'package:club/feature/connect_wallet/async_action.dart';
 import 'package:club/feature/domain/domain.dart';
 import 'package:club/util/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ConnectWalletPage extends HookConsumerWidget {
   const ConnectWalletPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const _ConnectWalletPage();
-  }
-}
+    final asyncAction = ref.watch(connectWalletAsyncActionProvider);
 
-class _ConnectWalletPage extends StatelessWidget {
-  const _ConnectWalletPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -39,24 +34,16 @@ class _ConnectWalletPage extends StatelessWidget {
                 children: [
                   InkFore(
                     onTap: (context) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const DomainPage(),
-                        ),
-                      );
+                      asyncAction
+                          .connect((uri) => launchUrlString(uri))
+                          .then((value) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const DomainPage(),
+                          ),
+                        );
+                      });
                     },
-                    child: SvgPicture.asset(Assets.svg('reinbow-icon')),
-                  ),
-                  InkFore(
-                    onTap: (context) {},
-                    child: SvgPicture.asset(Assets.svg('metamask-icon')),
-                  ),
-                  InkFore(
-                    onTap: (context) {},
-                    child: SvgPicture.asset(Assets.svg('coinbase-icon')),
-                  ),
-                  InkFore(
-                    onTap: (context) {},
                     child: SvgPicture.asset(Assets.svg('walletconnect-icon')),
                   ),
                 ],

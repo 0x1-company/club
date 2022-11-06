@@ -20,6 +20,12 @@ class UserDatastore {
     }, SetOptions(merge: true));
   }
 
+  Future<void> setAddress(String address) {
+    return _database
+        .userReference()
+        .set({'address': address}, SetOptions(merge: true));
+  }
+
   Future<User> name(String name) {
     return _database
         .users()
