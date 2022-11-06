@@ -11,9 +11,15 @@ extension UserFirestoreFieldKeys on String {
 
 @freezed
 abstract class User with _$User {
-  const factory User({
+  User._();
+  factory User({
     @Default('') String id,
+    @Default('') String name, // tomokisun.byclub.in
+    @Default('') String labelName, // tomokisun
+    @Default('') String address,
     Package? packageInfo,
   }) = _User;
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  bool get isOnboard => name.isEmpty || labelName.isEmpty || address.isEmpty;
 }

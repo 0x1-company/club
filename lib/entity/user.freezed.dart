@@ -21,6 +21,9 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   String get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError; // tomokisun.byclub.in
+  String get labelName => throw _privateConstructorUsedError; // tomokisun
+  String get address => throw _privateConstructorUsedError;
   Package? get packageInfo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -33,7 +36,12 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String id, Package? packageInfo});
+  $Res call(
+      {String id,
+      String name,
+      String labelName,
+      String address,
+      Package? packageInfo});
 
   $PackageCopyWith<$Res>? get packageInfo;
 }
@@ -52,12 +60,27 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? id = null,
+    Object? name = null,
+    Object? labelName = null,
+    Object? address = null,
     Object? packageInfo = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      labelName: null == labelName
+          ? _value.labelName
+          : labelName // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String,
       packageInfo: freezed == packageInfo
           ? _value.packageInfo
@@ -85,7 +108,12 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, Package? packageInfo});
+  $Res call(
+      {String id,
+      String name,
+      String labelName,
+      String address,
+      Package? packageInfo});
 
   @override
   $PackageCopyWith<$Res>? get packageInfo;
@@ -101,12 +129,27 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   @override
   $Res call({
     Object? id = null,
+    Object? name = null,
+    Object? labelName = null,
+    Object? address = null,
     Object? packageInfo = freezed,
   }) {
     return _then(_$_User(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      labelName: null == labelName
+          ? _value.labelName
+          : labelName // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
               as String,
       packageInfo: freezed == packageInfo
           ? _value.packageInfo
@@ -118,8 +161,14 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 
 /// @nodoc
 @JsonSerializable()
-class _$_User implements _User {
-  const _$_User({this.id = '', this.packageInfo});
+class _$_User extends _User {
+  _$_User(
+      {this.id = '',
+      this.name = '',
+      this.labelName = '',
+      this.address = '',
+      this.packageInfo})
+      : super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -127,11 +176,22 @@ class _$_User implements _User {
   @JsonKey()
   final String id;
   @override
+  @JsonKey()
+  final String name;
+// tomokisun.byclub.in
+  @override
+  @JsonKey()
+  final String labelName;
+// tomokisun
+  @override
+  @JsonKey()
+  final String address;
+  @override
   final Package? packageInfo;
 
   @override
   String toString() {
-    return 'User(id: $id, packageInfo: $packageInfo)';
+    return 'User(id: $id, name: $name, labelName: $labelName, address: $address, packageInfo: $packageInfo)';
   }
 
   @override
@@ -140,13 +200,18 @@ class _$_User implements _User {
         (other.runtimeType == runtimeType &&
             other is _$_User &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.labelName, labelName) ||
+                other.labelName == labelName) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.packageInfo, packageInfo) ||
                 other.packageInfo == packageInfo));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, packageInfo);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, labelName, address, packageInfo);
 
   @JsonKey(ignore: true)
   @override
@@ -162,13 +227,25 @@ class _$_User implements _User {
   }
 }
 
-abstract class _User implements User {
-  const factory _User({final String id, final Package? packageInfo}) = _$_User;
+abstract class _User extends User {
+  factory _User(
+      {final String id,
+      final String name,
+      final String labelName,
+      final String address,
+      final Package? packageInfo}) = _$_User;
+  _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
   @override
   String get id;
+  @override
+  String get name;
+  @override // tomokisun.byclub.in
+  String get labelName;
+  @override // tomokisun
+  String get address;
   @override
   Package? get packageInfo;
   @override

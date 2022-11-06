@@ -16,8 +16,6 @@ final databaseProvider = Provider<DatabaseConnection>((ref) {
 abstract class _CollectionPath {
   static const String users = "/users";
   static String userPrivates(String id) => '$users/$id/privates';
-
-  static const String domains = '/domains';
 }
 
 class DatabaseConnection {
@@ -25,6 +23,10 @@ class DatabaseConnection {
   String get userId => _uid;
 
   DatabaseConnection(this._uid);
+
+  CollectionReference users() {
+    return FirebaseFirestore.instance.collection(_CollectionPath.users);
+  }
 
   DocumentReference userReference() {
     return FirebaseFirestore.instance
@@ -36,9 +38,5 @@ class DatabaseConnection {
     return FirebaseFirestore.instance
         .collection(_CollectionPath.userPrivates(_uid))
         .doc(_uid);
-  }
-
-  CollectionReference domainReference() {
-    return FirebaseFirestore.instance.collection(_CollectionPath.domains);
   }
 }
