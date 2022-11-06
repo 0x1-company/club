@@ -1,4 +1,6 @@
 import 'package:club/components/pops/card.dart';
+import 'package:club/components/scaffold_indicator.dart';
+import 'package:club/feature/timeline/state.codegen.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -7,8 +9,14 @@ class TimelinePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return _TimelinePage(
-      onRefresh: () async => {},
+    final state = ref.watch(timelineStateProvider);
+
+    return state.when(
+      data: (state) => _TimelinePage(
+        onRefresh: () async => {},
+      ),
+      error: (error, _) => Container(),
+      loading: () => const ScaffoldIndicator(),
     );
   }
 }

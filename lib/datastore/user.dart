@@ -21,9 +21,9 @@ class UserDatastore {
   }
 
   Future<void> setAddress(String address) {
-    return _database
-        .userReference()
-        .set({'address': address}, SetOptions(merge: true));
+    return _database.userReference().set({
+      'address': address.toLowerCase(),
+    }, SetOptions(merge: true));
   }
 
   Future<User> name(String name) {
