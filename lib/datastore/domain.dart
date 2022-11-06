@@ -21,11 +21,10 @@ class DomainDatastore {
         .then((value) => value.docs.isEmpty);
   }
 
-  Future<void> register(String labelName, String address) {
+  Future<void> register(String labelName) {
     return _database.userReference().set({
       'name': '$labelName.byclub.in',
       'labelName': labelName,
-      'address': address,
     }, SetOptions(merge: true));
   }
 }

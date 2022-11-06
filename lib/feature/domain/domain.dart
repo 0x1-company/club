@@ -1,7 +1,9 @@
 import 'package:club/components/rounded.dart';
 import 'package:club/components/scaffold_indicator.dart';
+import 'package:club/feature/domain/async_action.dart';
 import 'package:club/feature/domain/domain_label_name_notifier.dart';
 import 'package:club/feature/domain/state.codegen.dart';
+import 'package:club/feature/tab/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,12 +14,16 @@ class DomainPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(domainStateProvider);
+    final asyncAction = ref.watch(domainAsyncActionProvider);
     final domainLabelNameNotifier =
         ref.watch(domainLabelNameNotifierProvider.notifier);
 
     return state.when(
       data: (state) => _DomainPage(
-          state: state, domainLabelNameNotifier: domainLabelNameNotifier),
+        state: state,
+        asyncAction: asyncAction,
+        domainLabelNameNotifier: domainLabelNameNotifier,
+      ),
       error: (error, _) => Container(),
       loading: () => const ScaffoldIndicator(),
     );
@@ -26,11 +32,13 @@ class DomainPage extends HookConsumerWidget {
 
 class _DomainPage extends StatelessWidget {
   final DomainState state;
+  final DomainAsyncAction asyncAction;
   final DomainLabelNameNotifier domainLabelNameNotifier;
 
   const _DomainPage({
     Key? key,
     required this.state,
+    required this.asyncAction,
     required this.domainLabelNameNotifier,
   }) : super(key: key);
 
@@ -102,7 +110,15 @@ class _DomainPage extends StatelessWidget {
                     padding: const EdgeInsets.all(16),
                     child: RoundedInk(
                       radius: 8,
-                      onTap: (context) {},
+                      onTap: (context) {
+                        asyncAction.register(state.labelName).then((value) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => const TabPage(),
+                            ),
+                          );
+                        });
+                      },
                       child: Container(
                         width: 56,
                         height: 48,
