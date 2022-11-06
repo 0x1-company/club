@@ -1,17 +1,27 @@
 users:
   id: string
-  provider: string # apple.com or google.com
-  packageInfo:
-    latestOS: string
-    appName: string
-    appVersion: string
-    buildNumber: string
-  privates:
-    email: string
-
-domains:
-  label: string
+  name: string
+  labelName: string
   address: string
 
+follows:
+  fromAddress: string
+  toAddress: string
+
 transactions:
-  createdAt: number
+  userAddress: string
+  blockSignedAt: string
+  txHash: string
+  fromAddress: string
+  toAddress: string
+  value: number
+  logEvents:
+    senderName: string
+    senderAddress: string
+    decoded:
+      name: string
+      signature: string
+      params:
+        name: string
+        type: string
+        value: string
