@@ -3,6 +3,7 @@ import 'package:club/components/scaffold_indicator.dart';
 import 'package:club/feature/domain/domain_label_name_notifier.dart';
 import 'package:club/feature/domain/state.codegen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DomainPage extends HookConsumerWidget {
@@ -63,6 +64,11 @@ class _DomainPage extends StatelessWidget {
             style: const TextStyle(
               color: Colors.white,
             ),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(
+                RegExp('[0-9a-zA-Z]'),
+              ),
+            ],
           ),
           state.isAvailable.when(
             data: (isAvailable) => Text(
@@ -73,7 +79,7 @@ class _DomainPage extends StatelessWidget {
             ),
             error: (error, _) => Text(
               '$error',
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.red),
             ),
             loading: () => const CircularProgressIndicator(),
           ),

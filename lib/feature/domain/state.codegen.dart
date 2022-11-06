@@ -16,7 +16,16 @@ class DomainState with _$DomainState {
 
 final domainStateProvider = Provider<AsyncValue<DomainState>>((ref) {
   final labelName = ref.watch(domainLabelNameNotifierProvider);
-  final isAvailable = ref.watch(domainAvailableProvider(labelName));
+  final AsyncValue<bool> isAvailable;
+
+  if (labelName.isEmpty) {
+    isAvailable = AsyncValue.error(
+      '',
+      StackTrace.fromString(''),
+    );
+  } else {
+    isAvailable = ref.watch(domainAvailableProvider(labelName));
+  }
 
   try {
     return AsyncValue.data(DomainState(
